@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <head>
+    <!-- Añade esto en la sección <head> de tu archivo HTML -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Películas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000;
+            color: white;
+        }
+
+        header {
+            background-color: #000;
+            padding: 15px;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+
+        nav ul li {
+            padding: 10px 15px;
+            cursor: pointer;
+            color: #ccc;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li:hover {
+            color: white;
+        }
+
+        nav ul li.active {
+            color: white;
+            font-weight: bold;
+        }
+
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 100px 20px 20px;
+            margin-top: 60px;
+        }
+
+        .movie {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .movie img {
+            width: 100%;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+        }
+
+        .movie:hover img {
+            transform: scale(0.0);
+        }
+
+        .movie p {
+            margin-top: 8px;
+            font-size: 16px;
+            color: #f0f0f0;
+        }
+
+        .movie:hover {
+            transform: translateY(-10px);
+        }
+
+        /* Modal para mostrar detalles de las películas */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 5px;
+        }
+
+        .modal-content {
+            background-color: #1c1c1c;
+            margin: auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 80%;
+            max-width: 700px;
+            color: white;
+            text-align: center;
+        }
+
+        /* Estilo del póster con borde neón */
+        .modal-content img {
+            width: 60%;
+            max-width: 300px;
+            border-radius: 12px;
+            border: 2px solid #FF0000; /* Borde rojo */
+            box-shadow: 0 0 20px #FF0000, 0 0 40px #000000, 0 0 60px #FF000000; /* Efecto neón */
+            transition: all 0.3s ease; /* Transición suave */
+        }
+
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+        }
+
+        .info h2 {
+            margin-top: 20px;
+            font-size: 26px;
+        }
+
+        .info p {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ccc;
+        }
+
+        .info .link {
+            color: #FF0000;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        @media (max-width: 1024px) {
+            .movie-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .movie-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 5px;
+                padding: 10px 10px 20px;
+                margin-top: 60px;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ASIÁTICAS</h1>
+        <nav>
+            <ul></ul>
+        </nav>
+    </header>
+
+    <div class="movie-grid">
+        <!--Asiáticas-->
+        <div class="movie" data-category="NO EDITAR" data-title="Wonderland" data-year="2024" data-genre="Ciencia ficción,Drama" data-duration="1h 49 mins" data-synopsis="En un mundo virtual llamado “Wonderland”, un lugar en el que la gente puede reunirse con una persona que tal vez no vuelva a ver simulándola a través de la inteligencia artificial, una mujer de 20 años pide reunirse con su amante que está en coma, y un hombre de 40 años pide reunirse con su esposa que ha fallecido." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL29xM3lmcmM3ZGo1cg==">
+    <img src="https://image.tmdb.org/t/p/original/xGFjhFkqpOpFFUkEQjetKS11AWz.jpg" alt="Wonderland">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="El Gángster, El Policía y El Diablo" data-year="2019" data-genre="Crimen, Acción, Suspenso" data-duration="1h 49 mins" data-synopsis="Después de apenas sobrevivir a un ataque violento de un esquivo asesino en serie, el jefe del crimen Jang Dong-su se encuentra formando una asociación poco probable con el detective local Jung Tae-seok para atrapar al sádico asesino simplemente conocido como (K)." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL2ZoMzE0MzNiOWk3ZQ==">
+    <img src="https://image.tmdb.org/t/p/original/q24zgwQ2ktGd5bfgDm0wV07a68Y.jpg" alt="El Gángster, El Policía y El Diablo">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Una chica del siglo XX" data-year="2022" data-genre="Romance, Drama" data-duration="2h 1 mins" data-synopsis="Yeon-du le pide a su mejor amiga Bora que recopile toda la información que pueda sobre Baek Hyun-jin mientras ella está en los Estados Unidos para someterse a una cirugía de corazón. Bora decide acercarse primero al mejor amigo de Baek, Pung Woon-ho. Sin embargo, el torpe plan de Bora se desarrolla en una dirección inesperada. En 1999, un año antes del nuevo siglo, Bora, que cumple diecisiete años, cae en la fiebre del primer amor." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL3VydnFhcndyYnRnbA==">
+    <img src="https://image.tmdb.org/t/p/original/4kU4QFgExCgybhcKv1mzZ0vuND6.jpg" alt="Una chica del siglo XX">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Drawing Closer" data-year="2024" data-genre="Romance, Drama" data-duration="1h 59 mins" data-synopsis="Akito, un adolescente al que solo le queda un año de vida, le encuentra un nuevo significado a su existencia: llenar de felicidad los últimos seis meses de una enferma terminal." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lLzQ4Z3c3ZDZwNDV1YQ==">
+    <img src="https://image.tmdb.org/t/p/original/krRobd1S0Yn46N11Rs8fCWYFzll.jpg" alt="Drawing Closer">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="City Hunter" data-year="2024" data-genre="Acción" data-duration="1h 44 mins" data-synopsis="Ryo Saeba, detective privado de puntería extraordinaria y mujeriego redomado, se alía a regañadientes con la hermana de su difunto compañero para investigar su muerte." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL25qNGVlbWhtM3JhYg==">
+    <img src="https://image.tmdb.org/t/p/original/cjQzJ9xFdaN9KAwu7HUImIgbc2Y.jpg" alt="City Hunter">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Contigo a muerte" data-year="2021" data-genre="Drama, Romance, Suspenso" data-duration="2h 22 mins" data-synopsis="Su esposo abusivo ha muerto a manos de una amiga lesbiana que haría cualquier cosa por ella. Ahora huyen para ponerse a salvo." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXnoLmNvbS9lLzI4MW8zaHR4ZXMyMA==">
+    <img src="https://image.tmdb.org/t/p/original/vCaAcunvp2yabxG5I1HACKbKw1p.jpg" alt="Contigo a muerte">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Dulce y amargo" data-year="2021" data-genre="Drama, Romance, Comedia" data-duration="1h 42 mins" data-synopsis="Una pareja afronta las oportunidades y retos del mundo real mientras lidia con los problemas que conlleva mantener a flote una relación a distancia." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXnoLmNvbS9lL3A1bmQ2cTBzN2Z2aQ==">
+    <img src="https://image.tmdb.org/t/p/original/fGrFWjz53iNyMXhpWl7ByIpWS1m.jpg" alt="Dulce y amargo">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Entrenado para Matar" data-year="2019" data-genre="Drama, Acción" data-duration="1h 26 mins" data-synopsis="Un conserje, que oculta su verdadera identidad como asesino profesional, lucha contra nueve asesinos para salvar a la hija del hombre que lo crió." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXnoLmNvbS9lL3hjOThjeDVrbmJjcg==">
+    <img src="https://image.tmdb.org/t/p/original/uT49crqAK6qDWfoAERnFxqod1Ha.jpg" alt="Entrenado para Matar">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Ballerina" data-year="2023" data-genre="Acción, Aventura, Suspense" data-duration="1h 33 mins" data-synopsis="Ok Ju solía trabajar como guardaespaldas. Destaca en actividades físicas como las artes marciales, la lucha con espadas, la puntería y la conducción de motos. Ok Ju es amiga de Min Hee, que es bailarina. Min Hee le pide a Ok Ju un favor. Quiere que Ok Ju se vengue de Pro Choi. Ok Ju pronto arriesga su vida por Min Hee." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXnoLmNvbS9lL3l0YTNoNWd6em1lbg==">
+    <img src="https://image.tmdb.org/t/p/original/oE7xtGDqZnr7tFHfwb8oM9iRW6H.jpg" alt="Ballerina">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Jung_E" data-year="2023" data-genre="Ciencia ficción" data-duration="1h 39 mins" data-synopsis="Siglo XXII. En un planeta Tierra inhabitable, el resultado de una guerra civil depende de la clonación del cerebro de una soldado de élite para crear un mercenario robot." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXnoLmNvbS9lLzNxeXpkNXJ4cmg1cQ==">
+    <img src="https://image.tmdb.org/t/p/original/z2nfRxZCGFgAnVhb9pZO87TyTX5.jpg" alt="Jung_E">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Exit: Escape de Seúl" data-year="2019" data-genre="Acción, Comedia" data-duration="1h 43 mins" data-synopsis="Yong-Nam (Cho Jung-Seok) ha estado desempleado durante años. Tiene una celebración de cumpleaños número 70 para su madre en un salón de convenciones. Allí, Yong-Nam se encuentra con Ui-Joo (Yoona). Se graduó de la misma universidad que Yong-Nam. En ese momento, el gas venenoso se extiende por toda la ciudad." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lLzYwaTVwdjhqMDN1ZA==">
+    <img src="https://image.tmdb.org/t/p/original/yt3vLjVqvZPRfpx3RUletHJVRVz.jpg" alt="Exit: Escape de Seúl">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Gonjiam: Hospital Maldito" data-year="2018" data-genre="Terror, Misterio" data-duration="1h 34 mins" data-synopsis="Una compañía de internet decide retransmitir en directo cómo un grupo de gente se adentra en el manicomio de Gonjiam. Para atraer a más espectadores, el espectáculo juega con los participantes, pero todo se complica cuando surge la posibilidad de que haya almas en pena acechando en las sombras." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lLzM0aThyNHR3dnRmNw==">
+    <img src="https://image.tmdb.org/t/p/original/fNqlsmu2tiI1bXcpU31yjHPkiJz.jpg" alt="Gonjiam: Hospital Maldito">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="El Teléfono" data-year="2020" data-genre="Suspenso, Misterio, Ciencia ficción" data-duration="1h 52 mins" data-synopsis="Conectadas por un teléfono, pero separadas por el tiempo. Una asesina en serie pone en peligro el pasado y la vida de otra mujer para cambiar su propio destino." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL3Fua3psaWxyenJ2eQ==">
+    <img src="https://image.tmdb.org/t/p/original/oz8hvZHg7tIdGwh0ErPRhobJKPR.jpg" alt="El Teléfono">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Alerta Roja" data-year="2021" data-genre="Acción, Aventura, Suspense" data-duration="2h 8 mins" data-synopsis="El volcán en la montaña Baekdu hace erupción repentinamente, causando varios terremotos tanto en Corea del Norte como en el Sur. El caos reina en la península de Corea cuando se predicen más erupciones. Para prevenir un desastre mayor, Jeon Yoo-kyung (Jeon Hye-jin) planea una operación basada en la teoría del profesor Kang Bong-rae (Ma Dong-seok), quien ha estudiado la montaña Baekdu y sus posibles erupciones. Jo In-chang (Ha Jung-woo) es el capitán del equipo de fuerzas especiales y es asignado a la operación que mantiene el destino de ambas Coreas en la balanza. Él contacta a Lee Joon-pyeong (Lee Byung-hun), un espía norcoreano para realizar la operación conjuntamente. Mientras, su esposa embarazada, Choi Ji-young (Bae Suzy), está sola en Seúl intentando sobrevivir en medio del desastre." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL3NzdDlrazZwZ2h5Mg==">
+    <img src="https://image.tmdb.org/t/p/original/gCZ0RHifBxZGedde7WPWSgjpyZt.jpg" alt="Alerta Roja">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Virus (Flu)" data-year="2013" data-genre="Acción, Aventura, Ciencia ficción" data-duration="2h 1 mins" data-synopsis="La peor epidemia jamás vista está arrasando Bundang, un suburbio de Seúl. Después de introducir a una serie de inmigrantes ilegales en el país, Byung-woo muere a causa de un virus desconocido. Poco después, los mismos síntomas aparecen en otros residentes de la zona. El pueblo se siente indefenso ante un virus que se transmite por el aire y en el que el número de afectados crece rápidamente, desatando el caos. Tratando de evitar la peor de las previsiones, la ciudad, en la que viven más de 19 millones de habitantes, se prepara para cerrar por completo sus fronteras por órdenes del gobierno. Mientras tanto, el especialista vírico In-hye y el rescatista Ji-goo se adentran en la ciudad para obtener una muestra de sangre del "paciente cero", una parte crucial de la investigación para tratar de fabricar una vacuna." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL2c5Y3ZtN2M1N3lwdQ==">
+    <img src="https://image.tmdb.org/t/p/original/oBnc4NLaxZ8V94srsfgdyyDjts4.jpg" alt="Virus (Flu)">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Hunger" data-year="2023" data-genre="Drama" data-duration="2h 25 mins" data-synopsis="Aoy regenta el restaurante de fideos de su familia en el casco antiguo de Bangkok. Un día recibe una invitación para dejar el negocio familiar y unirse al Team Hunger, el principal equipo de chefs de lujo de Tailandia." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL2Q1ZnA3OWpqc2dqNw==">
+    <img src="https://image.tmdb.org/t/p/original/rNYHsKHFP3AY2PIDZgz3AuY7QoC.jpg" alt="Hunger">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Metamorphosis" data-year="2019" data-genre="Terror, Suspenso" data-duration="1h 52 mins" data-synopsis="Una familia se muda a su nuevo hogar. Allí sufren el acecho de un espíritu maligno que puede ocupar el cuerpo de los distintos integrantes. Tendrán que recurrir a un tío sacerdote especialista en exorcismos, quien acaba de atravesar un traumático fracaso." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL25qcWowZXMzbmYyaA==">
+    <img src="https://image.tmdb.org/t/p/original/somL0rNxv9q60m9DgKhzOVNrJ3Q.jpg" alt="Metamorphosis">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Kill Boksoon" data-year="2023" data-genre="Acción, Drama, Suspense, Crimen" data-duration="2h 19 mins" data-synopsis="En el trabajo es una famosa asesina. En casa es una madre soltera. Para ella, matar está chupado... pero criar a su hija adolescente no tanto." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL3VrcmgwbjJwaHVjMQ==">
+    <img src="https://image.tmdb.org/t/p/original/7QKkvGgwMCvYrdkyNFgxfLESBtx.jpg" alt="Kill Boksoon">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Godzilla Minus One" data-year="2023" data-genre="Ciencia ficción, Terror, Acción" data-duration="2h 6 mins" data-synopsis="En el Japón de la posguerra, Godzilla trae una nueva devastación a un paisaje ya abrasado. Sin intervención militar ni ayuda gubernamental a la vista, los supervivientes deben unirse frente a la desesperación y luchar contra un horror implacable." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL2dqOTdyMDA1M2J1OA==">
+    <img src="https://image.tmdb.org/t/p/original/hkxxMIGaiCTmrEArK7J56JTKUlB.jpg" alt="Godzilla Minus One">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Parásitos" data-year="2019" data-genre="Comedia, Suspenso, Drama" data-duration="2h 12 mins" data-synopsis="Tanto Gi Taek (Song Kang-ho) como su familia están sin trabajo. Cuando su hijo mayor, Gi Woo (Choi Woo-sik), empieza a dar clases particulares en casa de Park (Lee Seon-gyun), las dos familias, que tienen mucho en común pese a pertenecer a dos mundos totalmente distintos, comienzan una interrelación de resultados imprevisibles." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL28yaDN4aTFkOGE2aA==">
+    <img src="https://image.tmdb.org/t/p/original/x23Fqkt00uqV2TzfSiB60hrc3HY.jpg" alt="Parásitos">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Misiones Cruzadas" data-year="2024" data-genre="Acción, Comedia, Aventura" data-duration="1h 45 mins" data-synopsis="En esta prueba de fuego matrimonial, un agente que ahora es amo de casa acaba envuelto en una arriesgada misión con su esposa inspectora... que ignora el pasado del marido." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL2ExMDhqZnJlYWluNQ==">
+    <img src="https://image.tmdb.org/t/p/original/aE9WqOApdRYsowsGE0118dyA4c9.jpg" alt="Misiones Cruzadas">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Exhuma" data-year="2024" data-genre="Misterio, Terror, Suspenso" data-duration="2h 14 mins" data-synopsis="Una renombrada chamana (Kim Go-eun) y su aprendiz son contratados por una enigmática familia adinerada para investigar la enfermedad sobrenatural que afecta a su hijo primogénito. Con la ayuda de un embalsamador y el experto en feng shui más famoso del país (Choi Min-sik), rastrean una tumba familiar oculta, ubicada en tierra sagrada. Percibiendo un aura ominosa alrededor del lugar, el equipo opta por exhumar y reubicar los restos ancestrales de inmediato. Pero algo mucho más oscuro emerge en la remota montaña, desatando fuerzas sobrenaturales que amenazan con destruirlos a todos." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL3czN2hxMnVoemcxbQ==">
+    <img src="https://image.tmdb.org/t/p/original/pQYHouPsDw32FhDLr7E3jmw0WTk.jpg" alt="Exhuma">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="#Vivo" data-year="2020" data-genre="Terror, Acción, Suspenso" data-duration="1h 38 mins" data-synopsis="La rápida propagación de una infección desconocida provoca el caos absoluto en una ciudad. Sin embargo, un ciudadano que vive completamente solo logra permanecer al margen de ella. Esta es su historia." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL29qcnVqazBmbG0yYQ==">
+    <img src="https://image.tmdb.org/t/p/original/zqf711LsnQ5CcW3rISFw2t7OYzb.jpg" alt="#Vivo">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Re/Member" data-year="2022" data-genre="Terror, Suspenso" data-duration="1h 43 minutos" data-synopsis="Seis estudiantes de instituto atrapados en un bucle temporal mortal deben encontrar los restos de una víctima desconocida para romper la maldición y vivir un nuevo día." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9wbGF5ZXJ3aXNoLmNvbS9lL3lxM21hYzRrcHJ4OA==">
+    <img src="https://image.tmdb.org/t/p/original/cCTmZ93aBZ1FwHntiDpa2Lj92zs.jpg" alt="Re/Member">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="The Parades" data-year="2024" data-genre="Drama" data-duration="2h 12 mins" data-synopsis="Una mujer no ceja en la búsqueda de su hijo tras una devastadora catástrofe, hasta que se da cuenta de que ha muerto y está atrapada en un mundo de almas atormentadas." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL3BsaGdvNzY3bWp2Mw==">
+    <img src="https://image.tmdb.org/t/p/original/lGkoz4G6q8z7xHCCeGo0oKSUKBN.jpg" alt="The Parades">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Me Llamo Loh Kiwan" data-year="2024" data-genre="Romance, Drama" data-duration="2h 13 mins" data-synopsis="Tras huir de Corea del Norte, Loh Kiwan intenta conseguir asilo político en Bélgica, donde conoce a una mujer que había perdido toda esperanza." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2MxMjlmbzJkY3k4cA==">
+    <img src="https://image.tmdb.org/t/p/original/x4BkphLO6abbGhceYEMhJERkvHo.jpg" alt="Me Llamo Loh Kiwan">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Susurros Mortales" data-year="2023" data-genre="Terror, Suspenso" data-duration="2h mins" data-synopsis="Cuando un espíritu sediento de sangre posee a una niña en una aldea remota, su hermano mayor lidera la lucha para exorcizarla... antes de que el mal la consuma por completo." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2lxNDZ5MjRtZ242cw==">
+    <img src="https://image.tmdb.org/t/p/original/48TDjSJpCdJ4SBOHZX3G5IjaV02.jpg" alt="Susurros Mortales">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Bad Genius" data-year="2017" data-genre="Drama, Crimen, Suspenso, Comedia" data-duration="2h 9 mins" data-synopsis="Bienvenido al negocio de chuletas para exámenes dirigido por Lynn, una estudiante brillante que encuentra la idea de negocio después de ayudar a Grace y Pat. Grace es una destacada activista escolar que no puede obtener las calificaciones que necesita. Pat es un chico rico y sucio que cree que el dinero puede comprar cualquier cosa. El negocio de Lynn se dispara y se inunda de dinero cuando decenas de estudiantes ofrecen su dinero a cambio de respuestas al examen." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzNtb3hkOW84YWVqZg==">
+    <img src="https://image.tmdb.org/t/p/original/6yK0Mg9kRZuFejwU5uNgx1kaQ3O.jpg" alt="Bad Genius">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Agente cinturón negro" data-year="2024" data-genre="Acción, Comedia, Crimen" data-duration="1h 49 mins" data-synopsis="Un talentoso experto en artes marciales siempre dispuesto a ayudar forma equipo con un oficial de libertad condicional para usar su talento en la lucha contra el crimen." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL2E3Z3piOXo5cjZ1Zw==">
+    <img src="https://image.tmdb.org/t/p/original/rEaJSXAlNfdhRpDHiNcJsoUa9qE.jpg" alt="Agente cinturón negro">
+    <p></p>
+</div>
+<div class="movie" data-category="NO EDITAR" data-title="Inocencia" data-year="2020" data-genre="Crimen, Suspenso" data-duration="1h 51 mins" data-synopsis="Una madre que no reconoce caras es sospechosa de envenenar a alguien, su hija decide defender a su madre y revelar la verdad detrás del caso." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL3NsaTVmeG1kOXlueA==">
+    <img src="https://image.tmdb.org/t/p/original/6a3lCZfVd5dFCPbkOHiVhCj4Pd8.jpg" alt="Inocencia">
+    <p></p>
+</div>
+<div class="movie" data-category="Asiática" data-title="Identidad Desbloqueada" data-year="2023" data-genre="Suspenso" data-duration="1h 57 mins" data-synopsis="La vida de una joven da un vuelco cuando el teléfono móvil que había perdido acaba en manos de un hombre peligroso que lo usa para controlar todos sus movimientos." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzJpczVmOHRtMHZicQ==">
+    <img src="https://image.tmdb.org/t/p/original/yW43JgoYPnSois2V0bIpFQFuDWl.jpg" alt="Identidad Desbloqueada">
+    <p></p>
+</div>
+<div class="movie" data-category="Asiática" data-title="Niebla sin fronteras" data-year="2024" data-genre="Suspenso, Crimen, Misterio, Drama" data-duration="1h 51 mins" data-synopsis="Una inspectora de la gran ciudad se ve obligada a enfrentarse a los fantasmas de su pasado cuando investiga unos macabros asesinatos en la frontera entre Indonesia y Malasia." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzBxb2ZyaDZsOTdlag==">
+    <img src="https://image.tmdb.org/t/p/original/z6uPuxzFJs7OyTPrl5V0XUITKj5.jpg" alt="Niebla sin fronteras">
+    <p></p>
+</div>
+<div class="movie" data-category="Asiática" data-title="Doi boy" data-year="2023" data-genre="Drama, Suspenso, Romance" data-duration="1h 39 mins" data-synopsis="Sorn, un refugiado, se forja una nueva identidad como trabajador sexual en Tailandia y acaba envuelto en el arriesgado plan de un cliente con la esperanza de mejorar su vida." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL3ZtM2ZhaGxkbmxxMA==">
+    <img src="https://image.tmdb.org/t/p/original/nFjNdswa8V8OyhwmhX31JB6ENkG.jpg" alt="Doi boy">
+    <p></p>
+</div>
+<div class="movie" data-title="Amarrados al amor" data-year="2022" data-genre="Romance, Comedia" data-duration="1h 58 mins" data-synopsis="El amor resulta ser un sufrimiento exquisito para dos compañeros de trabajo que acuerdan tener una relación llena de juegos, placer... y dolor." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzdiZXhlOTNwYTR0YQ==">
+    <img src="https://image.tmdb.org/t/p/original/oD1D1jTeZq5bCp22Me3GMndEjvi.jpg" alt="Amarrados al amor">
+    <p></p>
+</div>
+<div class="movie" data-title="Los 800" data-year="2020" data-genre="Bélica, Historia, Drama, Acción" data-duration="2h 28 mins" data-synopsis="En 1937, ochocientos soldados chinos luchan bajo el asedio en Shanghai, desde un almacén en medio del campo de batalla, completamente rodeados por el ejército japonés." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lL3A3NnlqOXh4bzdxdQ==">
+    <img src="https://image.tmdb.org/t/p/original/dO3vSg3GfinkcJvuMc77XxSNVti.jpg" alt="Los 800">
+    <p></p>
+</div>
+<div class="movie" data-title="Dear David" data-year="2023" data-genre="Drama, Romance, Fantasía" data-duration="1h 58 mins" data-synopsis="La vida de una alumna ejemplar da un vuelco cuando alguien filtra su blog de fantasías eróticas protagonizadas por el chico que le gusta y todo su instituto se entera." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9obHN3aXNoLmNvbS9lLzd3N2dmbTh0eG1lOA==">
+    <img src="https://image.tmdb.org/t/p/original/6lXX5DRJuyzFHmF14XkFJT8AHnj.jpg" alt="Dear David">
+    <p></p>
+</div>
+
+<div class="movie" data-title="The Forest of Love" data-year="2019" data-genre="Crimen, Suspenso" data-duration="2h 31 mins" data-synopsis="Un estafador y su equipo documental filman a dos mujeres, que descubren secretos oscuros." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS8zajNxY2d4b2ljbzM=">
+    <img src="https://image.tmdb.org/t/p/original/A7ve6RmC8C4VmfMEMhwRCwKWeim.jpg" alt="The Forest of Love">
+    <p></p>
+</div>
+
+<div class="movie" data-title="Declaración de Emergencia" data-year="2022" data-genre="Acción, Drama, Suspense" data-duration="2h 1 mins" data-synopsis="Un investigador farmacéutico amenaza con matar a los pasajeros del avión en el que viaja, lo que da paso al caos, desesperación y miedo, no solo dentro del avión, también en el planeta." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9qam1sY25qamtnaTU=">
+    <img src="https://image.tmdb.org/t/p/original/hxxtBWo50hwD37Q5cLEzaSDVyKZ.jpg" alt="Declaración de Emergencia">
+    <p></p>
+</div>
+
+<div class="movie" data-title="SLR" data-year="2022" data-genre="Terror, Suspenso" data-duration="1h 53 mins" data-synopsis="A un estudiante de fotografía se le asigna la tarea de tomar fotografías con una cámara misteriosa, lo que provoca consecuencias catastróficas para los sujetos capturados por su lente. " data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9pdDM5NnR2YmE5ODA=">
+    <img src="https://image.tmdb.org/t/p/original/mHQDLK9DZ5lULet8GhXYumd85p7.jpg" alt="SLR">
+    <p></p>
+</div>
+
+<div class="movie" data-title="Carter" data-year="2022" data-genre="Acción, Suspenso, Crimen" data-duration="2h 14 mins" data-synopsis="Representa la impresionante persecución del agente 'Carter', introducido en una operación misteriosa en la península de Corea donde estaba brotando un virus." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS80ZDI4MzY4Mm9kYjE=">
+    <img src="https://image.tmdb.org/t/p/original/uzAh3Ub2YttCz13cnyB9PvhpmIL.jpg" alt="Carter">
+    <p></p>
+</div>
+
+<div class="movie" data-title="Un tiempo para recordar" data-year="2021" data-genre="Romance" data-duration="1h 37 mins" data-synopsis="Jung Woo-jin, un chico sonriente y guapo, tiene una enfermedad que lo hace recordar todo. Hae-su es una mujer que Woo-jin conoce y lo cautiva, pero que vive con sólo un mes de memoria." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9wbG9sNzJsMjVkbmw=">
+    <img src="https://image.tmdb.org/t/p/original/dMhWtiSgrPW11wsayb4ArIYUADB.jpg" alt="Un tiempo para recordar">
+    <p></p>
+</div>
+
+<div class="movie" data-title="El mal no duerme" data-year="2023" data-genre="Terror, Misterio, Suspenso" data-duration="1h 33 mins" data-synopsis="LUna mujer embarazada comienza a preocuparse por los hábitos de sueño de su esposo. Lo que comienza poco a poco como un sueño ligero en el que habla pronto se intensifica y se convierte en un comportamiento inesperadamente grotesco. Ambos consultan a una clínica del sueño sin éxito y, a medida que aumenta su comportamiento de pesadilla, buscan desesperadamente la ayuda de un chamán." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9zd2lzaHNydi5jb20vZS9oYzkzNnQxanl0bGU=">
+    <img src="https://image.tmdb.org/t/p/original/b4d90lpmSTLoCP9tkBU7QAQOhh0.jpg" alt="El mal no duerme">
+    <p></p>
+</div>
+
+<div class="movie" data-title="Corrupción en Bangkok: Entre el cielo y el infierno" data-year="2024" data-genre="Acción, Crimen, Drama, Suspenso" data-duration="2h 27 mins" data-synopsis="Un rescatista debe luchar por sobrevivir tras verse atrapado en un conflicto entre bandas rivales de los bajos fondos de Bangkok." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL3Exenhxajk5amJ5MA==">
+    <img src="https://image.tmdb.org/t/p/original/6VeDn4oIeUK4XwjWGWMb6qvMImQ.jpg" alt="Corrupción en Bangkok">
+    <p></p>
+</div>
+
+<div class="movie" data-title="No Mercy" data-year="2018" data-genre="Acción, Crimen, Suspenso" data-duration="1h 33 mins" data-synopsis="Una mujer busca vengarse cuando su joven hermana desaparece y descubre que ésta sufrió violencia y abuso sexual por parte de matones escolares." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL3RnN3pwcWluY2duMA==">
+    <img src="https://image.tmdb.org/t/p/original/3KJVCVADvtZ6esjPWPHObjPMuK4.jpg" alt="No Mercy">
+    <p></p>
+</div>
+
+<div class="movie" data-title="Un hombre sin pasado" data-year="2010" data-genre="Acción, Suspenso, Crimen" data-duration="1h 59 mins" data-synopsis="La única conexión del ex-agente especial Cha Tae-sik con el mundo es una niña que vive cerca de su casa. La madre de la pequeña trabaja para una organización mafiosa que se dedica al tráfico de drogas y le confía a él la mercancía. Cuando los traficantes se dan cuenta, secuestran a la madre y a la niña. Además, confunden a Tae-sik con un camello." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL2VqOWpuejdiaHBxZw==">
+    <img src="https://image.tmdb.org/t/p/original/ld19CFIo27t41JXSGZdaPMUGTxh.jpg" alt="Un hombre sin pasado">
+    <p></p>
+</div>
+
+<div class="movie" data-title="Amenaza explosiva" data-year="2021" data-genre="Acción, Crimen, Drama, Suspenso" data-duration="1h 34 mins" data-synopsis="Mientras regresa a casa desde el trabajo, el gerente de un banco recibe una llamada anunciándole que hay una bomba bajo el asiento de su automóvil y, si alguien sale del vehículo, explotará. A no ser, claro está, que pague lo que le piden." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzZudDRocW5pZzV2Mw==">
+    <img src="https://image.tmdb.org/t/p/original/y2Aimt8isimtigec3e4kB2G9FMR.jpg" alt="Amenaza explosiva">
+    <p></p>
+</div>
+
+<div class="movie" data-title="Vidas pasadas" data-year="2023" data-genre="Drama, Romance" data-duration="1h 45 mins" data-synopsis="La familia de Nora emigra a Canadá cuando ella tiene 10 años. Pierde el contacto con su amor de la infancia. Muchos años después, cuando Nora está estudiando teatro en Nueva York, se reencuentra con él online." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lLzlrZjcwbnZkdmN0YQ==">
+    <img src="https://image.tmdb.org/t/p/original/rzO71VFu7CpJMfF5TQNMj0d1lSV.jpg" alt="Vidas pasadas">
+    <p></p>
+</div>
+
+<div class="movie" data-title="Olvidado" data-year="2017" data-genre="Suspenso, Misterio, Crimen" data-duration="1h 48 mins" data-synopsis="Seúl, Corea del Sur, 1997. Cuando el joven pero extremadamente ansioso estudiante Jin-seok, sus padres y su exitoso hermano mayor Yoo-seok se mudan a un nuevo hogar, hechos misteriosos y aterradores comienzan a suceder a su alrededor, eventos inexplicables que amenazan con arruinar sus vidas aparentemente felices. Incapaz de entender lo que está pasando, Jin-seok se pregunta si está perdiendo la cabeza." data-link="https://vpn-movie-ofc.blogspot.com/2024/05/embed_27.html?r=aHR0cHM6Ly9pcGxheWVyaGxzLmNvbS9lL3FqZ2o1c3p2NjZhNw==">
+    <img src="https://image.tmdb.org/t/p/original/cBgj41y1RvmW1zJCEX0uNWL0UjW.jpg" alt="Olvidado">
+    <p></p>
+</div>
+
+
+
+
+        
+        
+        
+        <!-- Más películas aquí -->
+    </div>
+
+    <!-- Modal para mostrar detalles de las películas -->
+<div id="movieModal" class="modal">
+    <div class="modal-content">
+        <span class="close">×</span>
+        <img id="modalPoster" src="" alt="Poster">
+        <div class="info">
+            <h2 id="modalTitle"></h2>
+            <p><i class="fas fa-calendar"></i> <span id="modalYear"></span></p>
+            <p><i class="fas fa-film"></i> <span id="modalGenre"></span></p>
+            <p><i class="fas fa-clock"></i> <span id="modalDuration"></span></p>
+            <p><i class="fas fa-book"></i> <span id="modalSynopsis"></span></p>
+            <a id="modalLink" href="https://example.com" target="_blank" class="link">
+                <button style="background-color: #FF0000; color: white; padding: 10px 100px; border: 2px solid #FF4C4C; border-radius: 8px; cursor: pointer; transition: all 0.3s ease-in-out; box-shadow: 0 0 15px rgba(255, 0, 0, 0.5); font-size: 16px; font-weight: bold; white-space: nowrap; overflow: hidden;">
+                    VER PELÍCULA
+                </button>
+            </a>
+        </div>
+    </div>
+</div>        
+
+    <script>
+        // Función para abrir el modal y mostrar los detalles de la película
+        function openModal(movie) {
+            const modal = document.getElementById('movieModal');
+            const title = movie.getAttribute('data-title');
+            const year = movie.getAttribute('data-year');
+            const genre = movie.getAttribute('data-genre');
+            const duration = movie.getAttribute('data-duration');
+            const synopsis = movie.getAttribute('data-synopsis');
+            const link = movie.getAttribute('data-link');
+            const posterSrc = movie.querySelector('img').src;
+
+            document.getElementById('modalPoster').src = posterSrc;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalYear').textContent = 'Año: ' + year;
+            document.getElementById('modalGenre').textContent = 'Género: ' + genre;
+            document.getElementById('modalDuration').textContent = 'Duración: ' + duration;
+            document.getElementById('modalSynopsis').textContent = synopsis;
+            document.getElementById('modalLink').href = link;
+
+            modal.style.display = 'block';
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            document.getElementById('movieModal').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const movies = document.querySelectorAll('.movie');
+            const modalClose = document.querySelector('.close');
+
+            // Agregar el evento de clic a cada película
+            movies.forEach(movie => {
+                movie.addEventListener('click', function () {
+                    openModal(this);
+                });
+            });
+
+            // Cerrar el modal al hacer clic en la "x"
+            modalClose.addEventListener('click', closeModal);
+
+            // Cerrar el modal al hacer clic fuera del contenido
+            window.addEventListener('click', function (event) {
+                const modal = document.getElementById('movieModal');
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
